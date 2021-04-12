@@ -133,6 +133,9 @@ int main(int argc, char **argv)
 
 	printf("primes(%d) took %.4f seconds\n", 
 		max, ((float) t) / CLOCKS_PER_SEC);
+
+	printf("Press enter to exit...");
+	while (getchar() != '\n');
 	return 0;
 }
 
