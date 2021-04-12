@@ -11,8 +11,9 @@
 #include <math.h>
 #include <assert.h>
 #include <time.h>
+#include <string.h>
 
-#define MAX 1000000
+#define MAX 100000
 // fast integer ceiling devide
 #define CEIL(x, y) (1 + ((x - 1) / y))
 
@@ -57,32 +58,32 @@ void print_primes(char *c, int max)
 
 char *primes(int max)
 {
-	// Length of our bit array
-	int len = CEIL(max, 8);
-	int bitlen = sizeof(char) * len * 8;
-	// Create bit array	
-	//char bits[len];
-	char *bits = malloc(sizeof(char) * len); // len bytes
+	int len    = CEIL(max, 8);           // length in bytes
+	int bitlen = sizeof(char) * len * 8; // Length in bits (rounded up)
+	char *bits = malloc(sizeof(char) * len);
 
 	
 	// set all bits to 1
 	for (int i = 0; i < len; i++)
 		bits[i] = ~0; // ~0 will flip 0x00000000 into 0x11111111
 	
+	// set 1 to not prime (1 is not prime)
+	set_bit(bits, bitlen, 0, 0);
 	double max_sqrt = sqrt(max);
 
 	for (int i = 2; i <= max; i++) // 2 is the lowest prime
 	{
 		if (get_bit(bits, bitlen, i-1))
 		{
-			if (max_sqrt <= i) // If i is > max_sqrt than it's multiples will already be accounted for	
+			// If i is > max_sqrt than it's multiples will already be accounted for	
+			if (max_sqrt <= i) 
 			{
-				set_bit(bits, bitlen, i-1, true);	
+				set_bit(bits, bitlen, i-1, 1);	
 			}
 			else
 			{
 				for (int f = 2 * i; f <= max; f += i)
-					set_bit(bits, bitlen, f - 1, false);
+					set_bit(bits, bitlen, f - 1, 0);
 			}
 		}
 
@@ -93,6 +94,12 @@ char *primes(int max)
 
 int main(int argc, char **argv)
 {
+	const char *print_flag = "--suppress-output";
+
+	bool print;
+	if (argc > 1)
+		print = strcmp(argv[1], print_flag) == 0;
+
 	clock_t t;
 	t = clock();
 
@@ -100,7 +107,8 @@ int main(int argc, char **argv)
 
 	t = clock() - t;
 
-	print_primes(bits, MAX);
+	if (!print)
+		print_primes(bits, MAX);
 
 	free(bits);
 

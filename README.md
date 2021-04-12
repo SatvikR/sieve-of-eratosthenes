@@ -2,19 +2,31 @@
 
 This mini-project is an implementation of the [Sieve of Eratosthenes algorithm](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes), used to get all the primes under a threshold
 
-## run
+## Build
 
-### with make
+### With make
 
 ```bash
 make
+```
 
+### Without make
+
+```bash
+mkdir bin
+gcc -o ./bin/primes src/primes.c -lm
+```
+
+## Run
+
+### Run normally
+
+```bash
 ./bin/primes
 ```
 
-### without make
+### Suppress output
 
 ```bash
-gcc src/primes.c -lm
-./a.out # or ./a.exe on windows
+./bin/primes --suppress-output
 ```
