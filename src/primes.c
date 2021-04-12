@@ -73,9 +73,9 @@ char *primes(int max)
 
 	for (int i = 2; i <= max_sqrt; i++) // 2 is the lowest prime
 	{
-		if (get_bit(bits, bitlen, i-1))
+		if (get_bit(bits, bitlen, i-1)) // Check if current bit is marked as 1 (prime)
 		{
-			for (int f = 2 * i; f <= max; f += i)
+			for (int f = 2 * i; f <= max; f += i) // Mark all multiples of i as 0 (not prime)
 				set_bit(bits, bitlen, f - 1, 0);
 		}
 
