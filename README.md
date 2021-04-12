@@ -19,14 +19,16 @@ gcc -o ./bin/primes src/primes.c -lm
 
 ## Run
 
-### Run normally
+### Run normally (uses 100,000 by default)
 
 ```bash
 ./bin/primes
 ```
 
-### Suppress output
+### Run with other options
 
 ```bash
-./bin/primes --suppress-output
+# --suppress-output will supress printing primes, but will keep time info
+# --num lets you use a custom number
+./bin/primes --suppress-output --num 100 
 ```

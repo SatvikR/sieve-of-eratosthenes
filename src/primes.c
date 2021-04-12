@@ -13,7 +13,7 @@
 #include <time.h>
 #include <string.h>
 
-#define MAX 100000
+#define DEFAULT_MAX 100000
 // fast integer ceiling devide
 #define CEIL(x, y) (1 + ((x - 1) / y))
 
@@ -95,25 +95,48 @@ char *primes(int max)
 int main(int argc, char **argv)
 {
 	const char *print_flag = "--suppress-output";
+	const char *num_flag   = "--num";
 
-	bool print;
+	bool print = false;
+	int max    = DEFAULT_MAX;
+
 	if (argc > 1)
-		print = strcmp(argv[1], print_flag) == 0;
+	{
+		for (int i = 0; i < argc; i++)
+		{
+			if (strcmp(argv[i], print_flag) == 0)
+			{
+				print = true;
+			}
+			else if (strcmp(argv[i], num_flag) == 0)
+			{
+				if (i >= argc - 1)
+				{
+					printf("Please provide a num with the --num flag");
+					exit(1);
+				}
+				else
+				{
+					max = atoi(argv[i + 1]);
+				}
+			}
+		}
+	}
 
 	clock_t t;
 	t = clock();
 
-	char *bits = primes(MAX);
+	char *bits = primes(max);
 
 	t = clock() - t;
 
 	if (!print)
-		print_primes(bits, MAX);
+		print_primes(bits, max);
 
 	free(bits);
 
-	printf("primes(%d) took %.4f seconds (just the calculations, not the printing)\n", 
-		MAX, ((float) t) / CLOCKS_PER_SEC);
+	printf("primes(%d) took %.4f seconds\n", 
+		max, ((float) t) / CLOCKS_PER_SEC);
 	return 0;
 }
 
