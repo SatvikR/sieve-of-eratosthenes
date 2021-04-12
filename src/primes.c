@@ -2,7 +2,7 @@
 // Author: (c) Satvik Reddy 2021
 // File: primes.c
 // Description: Sieve of Eratosthenes implementation. The main algorithm
-// starts at line 57
+// starts at line 59
 //---------------------------------------------------------------------------
 
 #include <stdlib.h>
