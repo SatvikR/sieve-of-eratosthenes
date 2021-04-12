@@ -13,7 +13,7 @@
 #include <time.h>
 #include <string.h>
 
-#define DEFAULT_MAX 100000
+#define DEFAULT_MAX 1000000
 // fast integer ceiling devide
 #define CEIL(x, y) (1 + ((x - 1) / y))
 
@@ -71,20 +71,12 @@ char *primes(int max)
 	set_bit(bits, bitlen, 0, 0);
 	double max_sqrt = sqrt(max);
 
-	for (int i = 2; i <= max; i++) // 2 is the lowest prime
+	for (int i = 2; i <= max_sqrt; i++) // 2 is the lowest prime
 	{
 		if (get_bit(bits, bitlen, i-1))
 		{
-			// If i is > max_sqrt than it's multiples will already be accounted for	
-			if (max_sqrt <= i) 
-			{
-				set_bit(bits, bitlen, i-1, 1);	
-			}
-			else
-			{
-				for (int f = 2 * i; f <= max; f += i)
-					set_bit(bits, bitlen, f - 1, 0);
-			}
+			for (int f = 2 * i; f <= max; f += i)
+				set_bit(bits, bitlen, f - 1, 0);
 		}
 
 	}
