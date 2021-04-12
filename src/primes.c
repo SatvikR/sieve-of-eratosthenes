@@ -10,10 +10,11 @@
 #include <stdbool.h>
 #include <math.h>
 #include <assert.h>
+#include <time.h>
 
-#define MAX 120
+#define MAX 1000000
 // fast integer ceiling devide
-#define CEIL(x, y) 1 + ((x - 1) / y)
+#define CEIL(x, y) (1 + ((x - 1) / y))
 
 
 void set_bit(char *bits, int len, int index, bool value)
@@ -46,12 +47,12 @@ bool get_bit(char *bits, int len, int index)
 void print_primes(char *c, int max)
 {
 	int bitlen = sizeof(char) * CEIL(max, 8) * 8;
-	for (int i = 0; i < bitlen; i++)
+	for (int i = 0; i < max; i++)
 	{
 		if (get_bit(c, bitlen, i))
 			printf("%d, ", i + 1);
 	}
-	printf("\n");
+	printf("\n\n");
 }
 
 char *primes(int max)
@@ -70,7 +71,7 @@ char *primes(int max)
 	
 	double max_sqrt = sqrt(max);
 
-	for (int i = 2; i <= bitlen; i++) // 2 is the lowest prime
+	for (int i = 2; i <= max; i++) // 2 is the lowest prime
 	{
 		if (get_bit(bits, bitlen, i-1))
 		{
@@ -80,7 +81,7 @@ char *primes(int max)
 			}
 			else
 			{
-				for (int f = 2 * i; f <= bitlen; f += i)
+				for (int f = 2 * i; f <= max; f += i)
 					set_bit(bits, bitlen, f - 1, false);
 			}
 		}
@@ -92,11 +93,19 @@ char *primes(int max)
 
 int main(int argc, char **argv)
 {
+	clock_t t;
+	t = clock();
+
 	char *bits = primes(MAX);
+
+	t = clock() - t;
 
 	print_primes(bits, MAX);
 
 	free(bits);
+
+	printf("primes(%d) took %.4f seconds (just the calculations, not the printing)\n", 
+		MAX, ((float) t) / CLOCKS_PER_SEC);
 	return 0;
 }
 
