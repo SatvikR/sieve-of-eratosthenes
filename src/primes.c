@@ -59,8 +59,8 @@ void print_primes(uint8_t *c, int max)
 
 uint8_t *primes(int max)
 {
-	int len    = CEIL(max, 8);           // length in bytes
-	int bitlen = sizeof(uint8_t) * len * 8; // Length in bits (rounded up)
+	int len       = CEIL(max, 8);           // length in bytes
+	int bitlen    = sizeof(uint8_t) * len * 8; // Length in bits (rounded up)
 	uint8_t *bits = malloc(sizeof(uint8_t) * len);
 
 	
