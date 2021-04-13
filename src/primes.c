@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <math.h>
 #include <assert.h>
 #include <time.h>
@@ -18,10 +19,10 @@
 #define CEIL(x, y) (1 + ((x - 1) / y))
 
 
-void set_bit(char *bits, int len, int index, bool value)
+void set_bit(uint8_t *bits, int len, int index, bool value)
 {
 	assert(index < len);
-	char *byte = &bits[index/8]; // byte in which the target bit lives
+	uint8_t *byte = &bits[index/8]; // byte in which the target bit lives
 
 	if (value)
 	{
@@ -31,23 +32,23 @@ void set_bit(char *bits, int len, int index, bool value)
 	else
 	{
 		// This will set the bit to 0
-		char n = 1 << ((8 * (index / 8 + 1)) - index - 1);
+		uint8_t n = 1 << ((8 * (index / 8 + 1)) - index - 1);
 		*byte = *byte & (~n);
 	}
 	return;
 }
 
-bool get_bit(char *bits, int len, int index)
+bool get_bit(uint8_t *bits, int len, int index)
 {
 	assert(index < len);
-	char *byte = &bits[index/8]; // byte in which the target bit lives
+	uint8_t *byte = &bits[index/8]; // byte in which the target bit lives
 
 	return *byte & (1 << ((8 * (index / 8 + 1)) - index - 1));
 }
 
-void print_primes(char *c, int max)
+void print_primes(uint8_t *c, int max)
 {
-	int bitlen = sizeof(char) * CEIL(max, 8) * 8;
+	int bitlen = sizeof(uint8_t) * CEIL(max, 8) * 8;
 	for (int i = 0; i < max; i++)
 	{
 		if (get_bit(c, bitlen, i))
@@ -56,11 +57,11 @@ void print_primes(char *c, int max)
 	printf("\n\n");
 }
 
-char *primes(int max)
+uint8_t *primes(int max)
 {
 	int len    = CEIL(max, 8);           // length in bytes
-	int bitlen = sizeof(char) * len * 8; // Length in bits (rounded up)
-	char *bits = malloc(sizeof(char) * len);
+	int bitlen = sizeof(uint8_t) * len * 8; // Length in bits (rounded up)
+	uint8_t *bits = malloc(sizeof(uint8_t) * len);
 
 	
 	// set all bits to 1
@@ -134,7 +135,7 @@ int main(int argc, char **argv)
 	clock_t t;
 	t = clock();
 
-	char *bits = primes(max);
+	uint8_t *bits = primes(max);
 
 	t = clock() - t;
 
