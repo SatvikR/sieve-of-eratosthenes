@@ -128,10 +128,6 @@ int main(int argc, char **argv)
 		}
 	}
 
-	// This is probably not neccessary but I'm doing it anyway for safety
-	free((char*)print_flag);
-	free((char*)num_flag);
-
 	clock_t t;
 	t = clock();
 
@@ -152,6 +148,7 @@ int main(int argc, char **argv)
 		printf("Press enter to exit...");
 		while (getchar() != '\n');
 	}
+
 	return 0;
 }
 
