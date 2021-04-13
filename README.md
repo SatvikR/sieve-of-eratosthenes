@@ -7,6 +7,7 @@ This mini-project is an implementation of the [Sieve of Eratosthenes algorithm](
 ### With make
 
 ```bash
+# Needs clang
 make
 ```
 
@@ -14,7 +15,7 @@ make
 
 ```bash
 mkdir bin
-gcc -o ./bin/primes src/primes.c -lm
+clang -o ./bin/primes src/primes.c -lm # Remove -lm if on windows
 ```
 
 ## Run

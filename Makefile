@@ -1,6 +1,8 @@
-CC=gcc
+CC=clang
 CFLAGS=-Wall
-LFLAGS=-lm
+ifneq ($(OS),Windows_NT)
+	LFLAGS=-lm
+endif
 
 all: ./bin ./bin/primes
 
