@@ -88,13 +88,15 @@ int main(int argc, char **argv)
 {
 	const char *print_flag = "--suppress-output";
 	const char *num_flag   = "--num";
+	const char *no_i_flag  = "--no-i";
 
-	bool print = false;
-	int max    = DEFAULT_MAX;
+	bool print       = false;
+	bool interactive = true;
+	int max          = DEFAULT_MAX;
 
 	if (argc > 1)
 	{
-		for (int i = 0; i < argc; i++)
+		for (int i = 1; i < argc; i++)
 		{
 			if (strcmp(argv[i], print_flag) == 0)
 			{
@@ -110,7 +112,17 @@ int main(int argc, char **argv)
 				else
 				{
 					max = atoi(argv[i + 1]);
+					i++;
 				}
+			}
+			else if (strcmp(argv[i], no_i_flag) == 0)
+			{
+				interactive = false;	
+			}
+			else
+			{
+				printf("Argument \"%s\" is unknown\n", argv[i]);
+				exit(1);
 			}
 		}
 	}
@@ -134,8 +146,11 @@ int main(int argc, char **argv)
 	printf("primes(%d) took %.4f seconds\n", 
 		max, ((float) t) / CLOCKS_PER_SEC);
 
-	printf("Press enter to exit...");
-	while (getchar() != '\n');
+	if (interactive)
+	{
+		printf("Press enter to exit...");
+		while (getchar() != '\n');
+	}
 	return 0;
 }
 

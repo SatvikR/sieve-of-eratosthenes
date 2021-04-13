@@ -30,5 +30,6 @@ gcc -o ./bin/primes src/primes.c -lm
 ```bash
 # --suppress-output will supress printing primes, but will keep time info
 # --num lets you use a custom number
-./bin/primes --suppress-output --num 100 
+# --no-i will make it non interactive, (will exit automatically)
+./bin/primes --suppress-output --num 100  --no-i 
 ```
