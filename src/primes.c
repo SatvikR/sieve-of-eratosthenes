@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Author: (c) Satvik Reddy 2021
+// Copyright (c) 2021 Satvik Reddy
 // File: primes.c
 // Description: Sieve of Eratosthenes implementation. The main algorithm
 // starts at line 59
