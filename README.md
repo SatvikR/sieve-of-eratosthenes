@@ -20,7 +20,7 @@ clang -o ./bin/primes src/primes.c -lm # Remove -lm if on windows
 
 ## Run
 
-### Run normally (uses 100,000 by default)
+### Run normally (uses 1,000,000 by default)
 
 ```bash
 ./bin/primes
