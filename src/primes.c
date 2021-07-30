@@ -18,7 +18,7 @@
 // fast integer ceiling devide
 #define CEIL(x, y) (1 + ((x - 1) / y))
 
-inline void set_bit(uint8_t *bits, int len, int index, bool value)
+void set_bit(uint8_t *bits, int len, int index, bool value)
 {
     assert(index < len);
     uint8_t *byte = &bits[index / 8]; // byte in which the target bit lives
@@ -37,7 +37,7 @@ inline void set_bit(uint8_t *bits, int len, int index, bool value)
     return;
 }
 
-inline bool get_bit(uint8_t *bits, int len, int index)
+bool get_bit(uint8_t *bits, int len, int index)
 {
     assert(index < len);
     uint8_t *byte = &bits[index / 8]; // byte in which the target bit lives
